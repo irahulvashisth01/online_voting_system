@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Voting Dashboard - Smart Voting</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #1e3c72, #2a5298);
+            color: white;
+        }
+
+        .navbar {
+            background: rgba(0,0,0,0.4);
+        }
+
+        .card {
+            border-radius: 20px;
+            border: none;
+            transition: 0.3s ease;
+            text-align: center;
+            padding: 25px;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+        }
+
+        .candidate-img {
+            height: 120px;
+            width: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid #2a5298;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            margin-bottom: 15px;
+        }
+
+        .symbol-img {
+            height: 35px;
+            width: 35px;
+            object-fit: contain;
+        }
+
+        .btn-custom {
+            font-weight: 600;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark shadow">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="/">🗳 Smart Voting</a>
+
+        <div>
+            <a href="/results" class="btn btn-info btn-sm me-2">View Results</a>
+            <a href="/" class="btn btn-light btn-sm me-2">Home</a>
+            <a href="/logout" class="btn btn-danger btn-sm">Logout</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+
+    <h3 class="text-center fw-bold mb-4">Voting Dashboard</h3>
+
+    {% if has_voted == 1 %}
+        <div class="alert alert-warning text-center shadow">
+            ✅ You have already cast your vote.
+        </div>
+    {% else %}
+        <div class="alert alert-info text-center shadow">
+            Please select your preferred candidate below.
+        </div>
+    {% endif %}
+
+    <div class="row justify-content-center">
+
+        {% for candidate in candidates %}
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-lg text-dark">
+
+                <!-- Circular Candidate Photo -->
+                <img src="{{ url_for('static', filename='uploads/' + candidate[3]) if candidate[3] else 'https://via.placeholder.com/150' }}"
+                     class="candidate-img">
+
+                <h5 class="fw-bold">{{ candidate[1] }}</h5>
+
+                <div class="d-flex justify-content-center align-items-center mb-3">
+                    <img src="{{ url_for('static', filename='uploads/' + candidate[4]) if candidate[4] else 'https://via.placeholder.com/50' }}"
+                         class="symbol-img me-2">
+                    <span class="fw-medium">{{ candidate[2] }}</span>
+                </div>
+
+                {% if has_voted == 0 %}
+                    <a href="/vote/{{ candidate[0] }}" 
+                       class="btn btn-success btn-custom w-100">
+                        Vote Now
+                    </a>
+                {% else %}
+                    <button class="btn btn-secondary btn-custom w-100" disabled>
+                        Already Voted
+                    </button>
+                {% endif %}
+
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+
+</div>
+
+</body>
+</html>
