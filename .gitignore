@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 venv/
 __pycache__/
 *.pyc
@@ -8,4 +9,16 @@ instance/
 dataset/
 trainer/
 models/
+=======
+venv/
+__pycache__/
+*.pyc
+.env
+instance/
+*.sqlite3
+*.db
+dataset/
+trainer/
+models/
+>>>>>>> a53db1d4d1bc7a056b70cb258bc936c16d1fb799
 *.whl
