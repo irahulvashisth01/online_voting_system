@@ -8,3 +8,4 @@ instance/
 dataset/
 trainer/
 models/
+*.whl
